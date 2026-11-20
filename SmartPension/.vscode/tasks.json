@@ -1,0 +1,149 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "backend: build",
+      "type": "process",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "${workspaceFolder}/backend/SmartPension.Api/SmartPension.Api.csproj"
+      ],
+      "problemMatcher": "$msCompile",
+      "group": "build"
+    },
+    {
+      "label": "backend: run",
+      "type": "process",
+      "command": "dotnet",
+      "args": [
+        "run",
+        "--launch-profile",
+        "http"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/backend/SmartPension.Api"
+      },
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "dotnet",
+        "pattern": {
+          "regexp": "^(error)\\s+(.*)$",
+          "severity": 1,
+          "message": 2
+        },
+        "background": {
+          "activeBegins": "Building",
+          "activeEnds": "Now listening on"
+        }
+      },
+      "presentation": {
+        "panel": "dedicated",
+        "group": "run"
+      }
+    },
+    {
+      "label": "frontend: install",
+      "type": "shell",
+      "command": "npm install",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend"
+      }
+    },
+    {
+      "label": "frontend: dev",
+      "type": "shell",
+      "command": "npm run dev",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend"
+      },
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "vite",
+        "pattern": {
+          "regexp": "^(ERROR)\\s+(.*)$",
+          "severity": 1,
+          "message": 2
+        },
+        "background": {
+          "activeBegins": "VITE",
+          "activeEnds": "Local:"
+        }
+      },
+      "presentation": {
+        "panel": "dedicated",
+        "group": "run"
+      }
+    },
+    {
+      "label": "frontend: share build (port 4173)",
+      "type": "shell",
+      "command": "npm run share",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend"
+      },
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "vite-preview",
+        "pattern": {
+          "regexp": "^(ERROR)\\s+(.*)$",
+          "severity": 1,
+          "message": 2
+        },
+        "background": {
+          "activeBegins": "vite",
+          "activeEnds": "Local:"
+        }
+      },
+      "presentation": {
+        "panel": "dedicated",
+        "group": "share"
+      }
+    },
+    {
+      "label": "Run Smart Pension (backend + frontend)",
+      "dependsOn": [
+        "backend: run",
+        "frontend: dev"
+      ],
+      "dependsOrder": "parallel",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Cloudflare quick tunnel",
+      "type": "shell",
+      "command": "cloudflared tunnel --url http://localhost:4173",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "cloudflared",
+        "pattern": {
+          "regexp": "^(ERR)\\s+(.*)$",
+          "severity": 1,
+          "message": 2
+        },
+        "background": {
+          "activeBegins": "Requesting",
+          "activeEnds": "trycloudflare.com"
+        }
+      },
+      "presentation": {
+        "panel": "dedicated",
+        "group": "share"
+      }
+    },
+    {
+      "label": "Share online (backend + build + Cloudflare tunnel)",
+      "dependsOn": [
+        "backend: run",
+        "frontend: share build (port 4173)",
+        "Cloudflare quick tunnel"
+      ],
+      "dependsOrder": "parallel",
+      "problemMatcher": []
+    }
+  ]
+}

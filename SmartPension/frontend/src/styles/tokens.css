@@ -1,0 +1,74 @@
+/* ===== Design tokens – Smart Pension ===== */
+:root {
+  --c-primary: #103c35;
+  --c-primary-700: #0b2c27;
+  --c-primary-50: #e7efed;
+  --c-secondary: #168568;
+  --c-secondary-600: #126f57;
+  --c-secondary-50: #e3f3ee;
+  --c-accent: #d9aa55;
+  --c-accent-600: #b98a37;
+  --c-accent-50: #fbf3e4;
+  --c-bg: #f3f7f5;
+  --c-card: #ffffff;
+  --c-text: #25332f;
+  --c-muted: #5b6b66;
+  --c-subtle: #8a9893;
+  --c-border: #dde6e2;
+  --c-border-strong: #c6d3ce;
+
+  --c-success: #168568;
+  --c-success-50: #e3f3ee;
+  --c-warning: #a86a12;
+  --c-warning-50: #fdf3e2;
+  --c-danger: #b42318;
+  --c-danger-50: #fdecea;
+  --c-info: #1d5fa8;
+  --c-info-50: #e7f0fa;
+
+  --font-sans: "Inter", "Noto Sans Bengali", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-bn: "Noto Sans Bengali", "Inter", system-ui, sans-serif;
+
+  --radius-sm: 8px;
+  --radius: 12px;
+  --radius-lg: 18px;
+  --radius-pill: 999px;
+
+  --shadow-xs: 0 1px 2px rgba(16, 60, 53, 0.06);
+  --shadow-sm: 0 1px 3px rgba(16, 60, 53, 0.08), 0 1px 2px rgba(16, 60, 53, 0.04);
+  --shadow-md: 0 6px 18px rgba(16, 60, 53, 0.08), 0 2px 6px rgba(16, 60, 53, 0.05);
+  --shadow-lg: 0 18px 40px rgba(16, 60, 53, 0.14);
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  --sidebar-w: 268px;
+  --sidebar-w-collapsed: 84px;
+  --topbar-h: 68px;
+  --focus-ring: 0 0 0 3px rgba(217, 170, 85, 0.55);
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 180ms;
+}
+
+/* Font-size preference (set on <html>) */
+html[data-font="normal"] { font-size: 16px; }
+html[data-font="large"] { font-size: 18px; }
+html[data-font="xlarge"] { font-size: 20px; }
+
+html[lang="bn"] body { font-family: var(--font-bn); }
+
+/* Reduced motion – user preference or OS setting */
+html[data-motion="reduced"] *,
+html[data-motion="reduced"] *::before,
+html[data-motion="reduced"] *::after {
+  transition-duration: 0ms !important;
+  animation-duration: 0ms !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0ms !important; animation-duration: 0ms !important; }
+}
