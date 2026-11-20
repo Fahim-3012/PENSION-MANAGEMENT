@@ -31,6 +31,11 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
     {
         base.OnModelCreating(b);
 
+        // Pomelo gives Guid (char(36)) columns the 'ascii_general_ci' collation, which TiDB Cloud rejects
+        // ("Unsupported collation when new collation is enabled"). An empty value leaves the column on the
+        // database default collation, which works on MySQL, MariaDB and TiDB.
+        b.UseGuidCollation(string.Empty);
+
         b.Entity<Pensioner>(e =>
         {
             e.HasOne(p => p.User).WithOne(u => u.Pensioner)
